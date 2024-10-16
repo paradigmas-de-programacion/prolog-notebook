@@ -64,7 +64,7 @@ alumnos2(X):-
 </div>
 
 <div class="nb-cell query" data-chunk="20" data-tabled="true" name="q1">
-alumnos2(Alumno)
+alumnos(Alumno)
 </div>
 
 <div class="nb-cell markdown" name="md3">
