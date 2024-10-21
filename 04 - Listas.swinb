@@ -86,7 +86,11 @@ concatenar([H | T], L, [H | FL]) :-
 </div>
 
 <div class="nb-cell query" name="q10">
-concatenar([1,2], [3,4], L).
+concatenar([1, 2], [3, 4], L).
+</div>
+
+<div class="nb-cell query" data-tabled="true" name="q16">
+concatenar([1, 2], [H, H2 | [a]], [1, 2, 3, 4, X]).
 </div>
 
 <div class="nb-cell query" data-tabled="true" name="q11">
@@ -125,7 +129,7 @@ solucion_miebro(X,[_|T]):-solucion_miebro(X,T).
 Hay casos donde la información la vamos a tener dispuesta en hechos, pero queremos trabajarlo como listas. Para ello debemos tomar el conjunto deseado y pasarlo a una lista. Hay un predicado denominado findall/3 que se encarga de esto mismo. Para utilizarlo, se espera una variable que va a funcionar como un extractor, una meta (goal), y una variable con la lista con los valores recolectados
 </div>
 
-<div class="nb-cell program" name="p5">
+<div class="nb-cell program" data-background="true" name="p5">
 curso1(a).
 curso1(b).
 curso1(c).
@@ -145,15 +149,18 @@ aprobada(Nota):-Nota &gt;= 4.
 </div>
 
 <div class="nb-cell query" data-tabled="true" name="q13">
-findall(X, (nota(_, X), aprobada(X)), ListaNotas)
+findall(X, nota(_, X), ListaNotas)
 </div>
 
-<div class="nb-cell markdown" name="md7">
-Para este ejemplo me gustaría agregar que devuelva solo aquellos del curso2. Para ello no hace falta revelar información de los alumnos en ListaNotas
+<div class="nb-cell query" data-tabled="true" name="q15">
+% Listado de alumnos desaprobados
+% El guión bajo delante nos indica que es una variable que no se desea mostrar
+findall(_Y, (nota(_Y, _X), \+aprobada(_X)), ListaNotas)
 </div>
 
 <div class="nb-cell query" data-tabled="true" name="q14">
-findall(X, (nota(A, X), aprobada(X), curso2(A)), ListaNotas)
+% Listado de notas aprobadas de alumnos del curso2
+findall(_X, (nota(_A, _X), aprobada(_X), curso2(_A)), ListaNotas)
 </div>
 
 </div>
