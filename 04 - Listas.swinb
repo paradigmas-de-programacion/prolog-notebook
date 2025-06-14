@@ -98,7 +98,7 @@ concatenar([], x, L).
 </div>
 
 <div class="nb-cell markdown" name="md5">
-Muchos de los terminos más sencillos para trabajar con listas en prolog ya existen de forma nativa o a través de alguna biblioteca interna. Por ejemplo, nuestro predicado concatenar/3, existe con el nombre union/3.
+Muchos de los terminos más sencillos para trabajar con listas en prolog ya existen de forma nativa o a través de alguna biblioteca interna. Por ejemplo, nuestro predicado concatenar/3, existe con el nombre append/3.
 
 También tenemos otros dos predicados muy utilizados como length/2 donde unifica en sus argumentos una lista con su largo, y member/2 donde unificara en sus argumentos una lista con sus elementos. Intentemos crearlos nosotros para practicar
 </div>
@@ -117,8 +117,8 @@ solucion_largo([_|XS], N):-
     solucion_largo(XS, N1),
     N is N1 + 1.
 
-solucion_miebro(X,[X|_]).
-solucion_miebro(X,[_|T]):-solucion_miebro(X,T).
+solucion_miembro(X,[X|_]).
+solucion_miembro(X,[_|T]):-solucion_miembro(X,T).
 </div>
 
 <div class="nb-cell query" data-chunk="100" data-tabled="true" name="q12">
