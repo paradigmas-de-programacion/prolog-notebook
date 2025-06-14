@@ -2,11 +2,12 @@
 
 <div class="nb-cell markdown" name="md1">
 ## Recursividad
-La recursividad en Prolog permite definir un predicado en términos de sí mismo. Esto implica definir casos base, que son condiciones de terminación, junto con casos recursivos que simplifican gradualmente el problema hasta que alcanza el caso base. Este enfoque permite soluciones concisas y elegantes a problemas que involucran estructuras repetitivas o anidadas.
+La recursividad en Prolog permite definir un predicado en términos de sí mismo. Esto implica definir casos base, que son condiciones de terminación, junto con casos recursivos que simplifican gradualmente el problema hasta que alcanza el caso base.
 
 ### Ejemplo
 Consideremos un problema básico de recursividad como suele ser el factorial. El factorial de un número entero no negativo N, denotado como N!, es el producto de todos los enteros positivos menores o iguales a N. Es decir, para 7!, la operación debería ser 7 x 6 x 5 x 4 x 3 x 2 x 1.
 
+Esto también se puede expresar como el factorial de 7! es igual a 7 x 6!, que es igual a 7 x 6 x 5! y así sucesivamente.
 </div>
 
 <div class="nb-cell program" data-background="true" name="p1">
