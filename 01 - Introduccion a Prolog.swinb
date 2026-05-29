@@ -19,7 +19,7 @@ head :- body.
 <div class="nb-cell markdown" name="md2">
 Significa que si se cumple el *body* o cuerpo, entonces se cumple el *head* o la cabeza, por lo tanto decimos que se cumple la *regla*
 
-:- es el primer operador que vemos, y que representa el "si" condicional. Se lee de manera que se cumple *head* si *cuerpo*
+`:-` es el primer operador que vemos, y que representa el "si" condicional. Se lee de manera que se cumple *head* si *cuerpo*
 
 Si siempre se debe cumplir la cabeza, entonces podemos omitir el cuerpo. A esto se lo suele denominar *hecho*
 </div>
@@ -32,7 +32,9 @@ perro(breton).
 <div class="nb-cell markdown" name="md3">
 Usualmente, en la catedra vamos a trabajar acompañados por una *base de conocimientos* que no es más que un conjunto de datos con los que trabajamos, expresados en forma de listados de hechos.
 
-Toda base de conocimiento puede ser consultada a través de una consulta. Dará falso cualquier cosa que no pertenezca al conjunto solución
+Toda base de conocimiento puede ser consultada a través de una consulta. Dará falso cualquier cosa que no pertenezca al conjunto solución 
+
+(Por ello expresiones como `perro(poodle):-false` no aportan información. Si `perro(poodle)` no está en la base de conocimientos, consultar por el dará falso sin necesidad de que se especifique)
 </div>
 
 <div class="nb-cell query" data-chunk="2" data-tabled="true" name="q3">
@@ -62,7 +64,7 @@ mujer(maria).
 hombre(mati).
 hombre(luis).
 
-progenitor(ana, flor).
+progenitor(ana, flor). % ana es progenitora de flor
 progenitor(ana, maria).
 progenitor(ana, mati).
 progenitor(luis, flor).
@@ -73,6 +75,8 @@ hija(Hija, Progenitor) :- mujer(Hija), progenitor(Progenitor, Hija).
 
 <div class="nb-cell markdown" name="md6">
 En este ejemplo hemos creado una regla que dice que Hija es hija de Progenitor si y solo si Hija es mujer y Progenitor es progenitor de Hija. Tanto mujer/1 como progenitor/2 van a formar parte de nuestra base de conocimiento. Podrían también ser reglas
+
+_Notese que hija/2 es la firma. En otros lenguajes la firma lleva también los tipos, pero en este caso en prolog no es así_
 
 Para probar que esto funciona podemos ejecutar una *query* o consulta. Las mismas comienzan con el operador ?-
 </div>
@@ -155,7 +159,6 @@ Swi-prolog incluye varios predicados que permiten verificar estos tipos de termi
 - number/1: true si el parámetro es un número
 - atom/1: true si el parámetro es un atom
 - compound/1: true si el parámetro es un término compuesto (eg: 2 + T)
-
 </div>
 
 <div class="nb-cell markdown" name="md10">
@@ -165,15 +168,15 @@ Como primer programa, vamos a comenzar con la base de conocimiento de padre_de y
 </div>
 
 <div class="nb-cell program" data-background="true" name="p4">
-padre_de(carlos, luis). % luis sería el padre
-padre_de(eduardo, luis).
-padre_de(franco, carlos).
-padre_de(sofia, carlos).
-padre_de(julian, carlos).
+padre_de(luis, carlos). % luis sería el padre
+padre_de(luis, eduardo).
+padre_de(carlos, franco).
+padre_de(carlos, sofia).
+padre_de(carlos, julian).
 
-madre_de(franco, maria).
-madre_de(sofia, susana).
-madre_de(julian, susana).
+madre_de(maria, franco).
+madre_de(susana, sofia).
+madre_de(susana, julian).
 </div>
 
 <div class="nb-cell markdown" name="md11">
@@ -184,12 +187,12 @@ Primero veamos que podemos consultar
 
 <div class="nb-cell query" data-chunk="10" data-tabled="true" name="q5">
 % Si quisieramos listar la información disponible
-padre_de(Hijo, Padre).
+padre_de(Padre, Hijo).
 </div>
 
 <div class="nb-cell query" data-chunk="10" data-tabled="true" name="q6">
 % También podríamos consultar solo aquellos que son padres. Por ahora no nos van a importar los duplicados
-padre_de(_, Padre).
+padre_de(Padre, _).
 </div>
 
 <div class="nb-cell markdown" name="md12">
@@ -211,14 +214,14 @@ Nota: Las soluciones estarán presentes debajo. Intentar antes de leerlas :)
 
 <div class="nb-cell program" data-background="true" data-singleline="true" name="p6">
 % Solución
-solucion_hijo_de(Progenitor, Hijo):-
-    padre_de(Hijo, Progenitor);
-    madre_de(Hijo, Progenitor).
+solucion_hijo_de(Hijo, Progenitor):-
+    padre_de(Progenitor, Hijo);
+    madre_de(Progenitor, Hijo).
 </div>
 
 <div class="nb-cell query" data-chunk="10" data-tabled="true" name="q7">
 % Debería ser carlos y susana
-hijo_de(Progenitor, sofia).
+hijo_de(sofia, Progenitor).
 </div>
 
 <div class="nb-cell markdown" name="md13">
@@ -231,14 +234,14 @@ Ahora agreguemos una regla más, abuelo_de:
 
 <div class="nb-cell program" data-background="true" data-singleline="true" name="p8">
 % Solución
-solucion_abuelo_de(Hijo, Abuelo):-
-    solucion_hijo_de(Padre, Hijo),
-    solucion_hijo_de(Abuelo, Padre).
+solucion_abuelo_de(Abuelo, Nieto):-
+    solucion_hijo_de(Nieto, Padre),
+    solucion_hijo_de(Padre, Abuelo).
 </div>
 
 <div class="nb-cell query" data-chunk="10" data-tabled="true" name="q8">
 % El abuelo luis tiene 3 nietos
-abuelo_de(Hijo, Abuelo).
+abuelo_de(Nieto, Abuelo).
 </div>
 
 <div class="nb-cell markdown" name="md14">
@@ -296,14 +299,14 @@ Intentemos crear las reglas:
 % Soluciones
 
 solucion_progenitor(X):-
-    padre_de(_, X);
-    madre_de(_, X).
+    padre_de(X, _);
+    madre_de(X, _).
 
 solucion_medio_hermano_de(H1, H2):-
-    padre_de(H1, P1),
-    padre_de(H2, P2),
-    madre_de(H1, M1),
-    madre_de(H2, M2),
+    padre_de(P1, H1),
+    padre_de(P2, H2),
+    madre_de(M1, H1),
+    madre_de(M2, H2),
     H1 \== H2,
     (
       (P1 == P2, M1 \== M2);
@@ -311,10 +314,10 @@ solucion_medio_hermano_de(H1, H2):-
     ).
 
 solucion_hermano_de(H1, H2):-
-    padre_de(H1, P),
-    padre_de(H2, P),
-    madre_de(H1, M),
-    madre_de(H2, M),
+    padre_de(P, H1),
+    padre_de(P, H2),
+    madre_de(M, H1),
+    madre_de(M, H2),
     H1 \== H2.
 </div>
 
@@ -346,7 +349,6 @@ calculadora(X, Y, Operacion, Resultado):-false. % TODO
 
 % Operacion suma
 operacion(X, Y, '+', Resultado):-Resultado is X + Y.
-
 </div>
 
 <div class="nb-cell query" name="q16">
