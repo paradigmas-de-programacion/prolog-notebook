@@ -32,6 +32,7 @@ La estructura de la recursividad es siempre de la misma manera. Depende el caso 
     * Regla recursiva
   	    * Alcance de la regla
         * Invocación recursividad
+        * Reducción
         * Operación con resultado parcial
 
 Observen que la consulta solo dio verdadero para los casos donde X &gt;= 0. Eso es porque para casos negativos de N, no está definida la regla
