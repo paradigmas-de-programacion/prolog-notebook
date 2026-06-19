@@ -96,7 +96,7 @@ hija(X, ana)
 <div class="nb-cell markdown" name="md7">
 ### Lógico
 
-Prolog pertenece al paradigma de programación lógica, por lo cuál su base es puramente lógica. Un lenguaje puro de Prolog puede ser expresado unicamente con un conjunto de [claususas Horn](https://en.wikipedia.org/wiki/Horn_clause)
+Prolog pertenece al paradigma de programación lógica, por lo cual su base es puramente lógica. Un lenguaje puro de Prolog puede ser expresado unicamente con un conjunto de [cláusulas de Horn](https://en.wikipedia.org/wiki/Horn_clause)
 
 ``mujer(H) ∧ progenitor(P, H) → hija(H, P)``
 
@@ -209,7 +209,7 @@ Nota: Las soluciones estarán presentes debajo. Intentar antes de leerlas :)
 </div>
 
 <div class="nb-cell program" data-background="true" name="p5">
-
+% hijo_de(Hijo, Progenitor):-
 </div>
 
 <div class="nb-cell program" data-background="true" data-singleline="true" name="p6">
@@ -229,11 +229,12 @@ Ahora agreguemos una regla más, abuelo_de:
 </div>
 
 <div class="nb-cell program" data-background="true" name="p7">
-
+% abuelo_de(Abuelo, Nieto):-
 </div>
 
 <div class="nb-cell program" data-background="true" data-singleline="true" name="p8">
 % Solución
+
 solucion_abuelo_de(Abuelo, Nieto):-
     solucion_hijo_de(Nieto, Padre),
     solucion_hijo_de(Padre, Abuelo).
@@ -241,19 +242,19 @@ solucion_abuelo_de(Abuelo, Nieto):-
 
 <div class="nb-cell query" data-chunk="10" data-tabled="true" name="q8">
 % El abuelo luis tiene 3 nietos
-abuelo_de(Nieto, Abuelo).
+abuelo_de(luis, Nieto).
 </div>
 
 <div class="nb-cell markdown" name="md14">
 Para los siguientes ejercicios vamos a agregar un concepto nuevo, el de comparación y unificacion
 
 *Unificación:*
-	- =\2 Unifica ambos terminos, es decir, intenta relacionar ambos terminos como equivalentes o da falso
-    - \=\2 Lo contrario de arriba, implica que ambos terminos son estrictamente distintos, o da falso
+	- =/2 Unifica ambos terminos, es decir, intenta relacionar ambos terminos como equivalentes o da falso
+    - \=/2 Lo contrario de arriba, implica que ambos terminos son estrictamente distintos, o da falso
 
 *Comparación:*
-	- ==\2 Da verdadero cuando ambos terminos son iguales, sin aplicar unificación
-    - \==\2 Da verdadero cuando ambos terminos son distintos, sin aplicar unificación
+	- ==/2 Da verdadero cuando ambos terminos son iguales, sin aplicar unificación
+    - \==/2 Da verdadero cuando ambos terminos son distintos, sin aplicar unificación
 
 Veamos algunas consultas para despejar dudas con estos nuevos operadores:
 </div>
@@ -292,7 +293,11 @@ Intentemos crear las reglas:
 </div>
 
 <div class="nb-cell program" data-background="true" name="p9">
+% progenitor(X):-
 
+% hermano_de(H1, H2):-
+
+% medio_hermano_de(H1, H2):-
 </div>
 
 <div class="nb-cell program" data-background="true" data-singleline="true" name="p10">
@@ -302,6 +307,8 @@ solucion_progenitor(X):-
     padre_de(X, _);
     madre_de(X, _).
 
+% Nota: esta version asume que conocemos padre Y madre de ambos hermanos.
+% Si faltara alguno de esos hechos, no los encontraría como medio hermanos.
 solucion_medio_hermano_de(H1, H2):-
     padre_de(P1, H1),
     padre_de(P2, H2),
@@ -322,7 +329,7 @@ solucion_hermano_de(H1, H2):-
 </div>
 
 <div class="nb-cell query" data-chunk="100" data-tabled="true" name="q15">
-solucion_hermano_de(X, Y)
+% Queries (Se puede usar el panel derecho también)
 </div>
 
 <div class="nb-cell markdown" name="md16">
@@ -332,31 +339,50 @@ Vamos a disponer de los siguientes operadores matemáticos:
 	- Comparación de mayor / menor: &lt; &gt;
 	- Comparación de mayor igual / menor igual: =&lt;  &gt;= (caritas tristes)
 	- Comparación con evaluación igual / distinto: =:= =\=
-	- Unificación con evaluación (legacy): is (evalua parte derecha y unifica sobre izquierda)
+	- Evaluación aritmética: is/2 (evalua la parte derecha, que debe estar totalmente instanciada, y unifica el resultado sobre la izquierda)
 	- Operadores unarios: + -
 	- Operaciones aritméticas: + - * / ** // mod
     - Operaciones de bits: &lt;&lt; &gt;&gt; /\ \/ xor
     - Funciones aritmeticas: abs sqrt sin cos tan exp log
 
-Podemos pasar a la consola para probar como funcionan.
-
-Incluso podemos intentar hacer una pequeña calculadora si nos animamos!
+Nota: is/2 es el operador estándar para aritmética. Existe una alternativa más declarativa, `#=/2` de la librería clpfd, pero queda fuera del alcance de este notebook.
 </div>
 
-<div class="nb-cell program" name="p11">
-% Predicado base
-calculadora(X, Y, Operacion, Resultado):-false. % TODO
-
-% Operacion suma
-operacion(X, Y, '+', Resultado):-Resultado is X + Y.
+<div class="nb-cell markdown" name="md_clasif">
+Como último ejercicio, vamos a clasificar un par de notas (de 1 a 10) en tres estados, usando una clausula por rango:
+	- `desaprobado` si una nota es menor a 4
+	- `aprobado` si ninguna nota es menor a 4, y su promedio es menor a 6.5
+	- `promociona` si ninguna nota es menor a 4, y su promedio es mayor igual a 6.5
 </div>
 
-<div class="nb-cell query" name="q16">
+<div class="nb-cell program" data-background="true" name="p_clasif">
+% clasificar_notas(Nota1, Nota2, Condicion):-
+</div>
 
+<div class="nb-cell program" data-background="true" data-singleline="true" name="p_clasif_sol">
+% Solución
+solucion_clasificar_notas(Nota1, Nota2, desaprobado):-
+    Nota1 &lt; 4; Nota1 &gt;= 4, Nota2 &lt; 4.
+
+solucion_clasificar_notas(Nota1, Nota2, aprobado):-
+    Nota1 &gt;= 4, Nota2 &gt;= 4, Total is (Nota1 + Nota2) / 2, Total &lt; 6.5.
+
+solucion_clasificar_notas(Nota1, Nota2, promociona):-
+    Nota1 &gt;= 4, Nota2 &gt;= 4, Total is (Nota1 + Nota2) / 2, Total &gt;= 6.5.
+</div>
+
+<div class="nb-cell query" data-chunk="5" name="q_clasif">
+clasificar_notas(5, 3, Condicion).
 </div>
 
 <div class="nb-cell markdown" name="md17">
-Este es el fin de la primera parte. Si llegaste hasta aquí felicitaciones, ya entendés los conceptos básicos de prolog :D
+## ¿Cómo seguimos?
+
+Si llegaste hasta aquí, felicitaciones: ya entendés los conceptos básicos de Prolog :D
+
+**Para practicar:** los ejercicios 01 (Menú de restaurant), 02 (Árbol genealógico), 03 (Agencia de viajes) y 04 (Notas de examen [puntos 1 al 3]) de la guia-prolog se resuelven con lo visto en este notebook.
+
+**Próximo notebook:** "02 - Conjuntos y máximos", donde vamos a pensar los predicados como conjuntos (unión, intersección, resta) y a buscar máximos y mínimos.
 </div>
 
 <div class="nb-cell markdown" name="md18">

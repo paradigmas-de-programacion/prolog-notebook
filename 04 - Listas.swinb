@@ -67,6 +67,8 @@ cabeza_cola([a, b, c], Cabeza, Cola).
 </div>
 
 <div class="nb-cell markdown" name="md4">
+### Recursión sobre listas
+
 Ahora combinemos el uso de listas en reglas, con recursividad, para lograr realizar operaciones que antes o nos eran imposibles, o su código se volvía muy complicado y rebuscado.
 
 Empecemos por combinar dos listas en una. Para ello voy a utilizar tres argumentos, dos para las listas parciales y uno para la lista combinada. La recursividad hará que eventualmente la segunda lista parcial se unifique como la lista combinada, y al volver sobre la recursion, se le adicionará a esta lista, cada uno de los elementos de la primer lista parcial
@@ -90,26 +92,22 @@ concatenar([1, 2], [3, 4], L).
 </div>
 
 <div class="nb-cell markdown" name="md7">
-Funcionamiento paso a paso:
+Veamos el funcionamiento paso a paso de ``concatenar([1, 2], [3, 4], R)``. Cada llamada recursiva tiene su propia cabeza, así que les ponemos nombres distintos (``H1``, ``H2``, ...) para no confundirlas.
 
-1) concatenar([1, 2], [3, 4], [H | FL1]) &lt;br&gt;
-H = 1, T = [2], L = [3,4], FL1=??? &lt;br&gt;
-llamado recursivo: concatenar(T,L,FL1) -&gt; concatenar([2],[3,4],FL1)
+#### Bajada (ida)
 
-2) concatenar([2], [3,4], [H | FL2]) &lt;br&gt;
-H = 2, T = [], L = [3,4], FL1 = [H | FL2], FL2 = ??? &lt;br&gt;
-llamado recursivo: concatenar(T,L,FL2) -&gt; concatenar([],[3,4],FL2)
+- paso 1: ``concatenar([1, 2], [3, 4], R)`` entra por la regla recursiva: ``H1 = 1``, ``T1 = [2]`` y ``R = [1 | FL1]``. Llama a ``concatenar([2], [3, 4], FL1)``.
+- paso 2: ``concatenar([2], [3, 4], FL1)``: ``H2 = 2``, ``T2 = []`` y ``FL1 = [2 | FL2]``. Llama a ``concatenar([], [3, 4], FL2)``.
+- paso 3: ``concatenar([], [3, 4], FL2)``: entra por el caso base ``concatenar([], L, L)`` ("concatenar nada con ``L`` es ``L``"), así que ``FL2 = [3, 4]``.
 
-3) concatenar([], [3,4], FL2) -&gt; Caso Base! Entonces FL2 = [3,4] (Recordar que en el caso base la 2da y 3er entrada son el mismo ``L``)
+#### Vuelta (se arma la lista, de adentro hacia afuera)
 
-Y luego se vuelve hacia el paso 1
+- paso 3: ``FL2 = [3, 4]``
+- paso 2: ``FL1 = [2 | FL2] = [2, 3, 4]``
+- paso 1: ``R = [1 | FL1] = [1, 2, 3, 4]``
 
-3) ``FL2 = [3,4]``
-
-2) ``FL1 = [H | FL2] = [H,3,4] = [2,3,4]`` (recordar que en el paso 2 `H=2`)
-
-1) ``[H|FL1]`` inicial: ``[H|FL1] = [H,2,3,4] = [1,2,3,4]`` (recordar que en el paso 1 `H=1`)
-
+#### En una sola línea:
+``R = [1 | [2 | [3, 4]]] = [1, 2, 3, 4]``
 </div>
 
 <div class="nb-cell query" data-tabled="true" name="q16">
@@ -121,6 +119,8 @@ concatenar([], x, L).
 </div>
 
 <div class="nb-cell markdown" name="md5">
+### length y member
+
 Muchos de los terminos más sencillos para trabajar con listas en prolog ya existen de forma nativa o a través de alguna biblioteca interna. Por ejemplo, nuestro predicado concatenar/3, existe con el nombre append/3.
 
 También tenemos otros dos predicados muy utilizados como length/2 donde unifica en sus argumentos una lista con su largo, y member/2 donde unificara en sus argumentos una lista con sus elementos. Intentemos crearlos nosotros para practicar
@@ -149,6 +149,8 @@ solucion_miembro(X,[_|T]):-solucion_miembro(X,T).
 </div>
 
 <div class="nb-cell markdown" name="md6">
+### findall
+
 Hay casos donde la información la vamos a tener dispuesta en hechos, pero queremos trabajarlo como listas. Para ello debemos tomar el conjunto deseado y pasarlo a una lista. Hay un predicado denominado findall/3 que se encarga de esto mismo. Para utilizarlo, se espera una variable que va a funcionar como un extractor, una meta (goal), y una variable con la lista con los valores recolectados
 </div>
 
@@ -184,6 +186,12 @@ findall(_Y, (nota(_Y, _X), \+aprobada(_X)), ListaNotas)
 <div class="nb-cell query" data-tabled="true" name="q14">
 % Listado de notas aprobadas de alumnos del curso2
 findall(_X, (nota(_A, _X), aprobada(_X), curso2(_A)), ListaNotas)
+</div>
+
+<div class="nb-cell markdown" name="md_cierre">
+## ¿Cómo seguimos?
+
+Con listas y recursividad ya podés encarar el ejercicio 12 de la guia-prolog (operaciones sobre listas: suma, contar, posiciones, promedio). Con esto cerramos los notebooks de Prolog.
 </div>
 
 </div>

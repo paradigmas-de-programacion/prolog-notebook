@@ -3,7 +3,7 @@
 <div class="nb-cell markdown" name="md1">
 ## Conjuntos
 
-Las consultas de prolog que unifican valores a variables (es decir, que _retorna_ información adicional) pueden ser pensadas en forma de conjuntos. Un predicado junto a sus atributos variables pueden ser pensados como un conjunto de información. De esa manera podemos pensar ciertas operaciónes como operaciones de conjuntos (unión \/, intersección /\ y resta --)
+Las consultas de prolog que unifican valores a variables (es decir, que _retorna_ información adicional) pueden ser pensadas en forma de conjuntos. Un predicado junto a sus atributos variables pueden ser pensados como un conjunto de información. De esa manera podemos pensar ciertas operaciones como operaciones de conjuntos (unión \/, intersección /\ y resta --)
 
 Tomemos como ejemplo dos conjuntos de hechos, `parcial1` y `parcial2`
 </div>
@@ -40,14 +40,16 @@ alumnos_solo_parcial2(X):-
 alumnos_ambos_parciales(X):-
     parcial1(X, _),
     parcial2(X, _).
-% {a,b,c,g,h,i} /\ {a,b,c,d,e,f} = {a,b,c}
+% {a,b,c,d,e,f} /\ {a,b,c,g,h,i} = {a,b,c}
 
 % Union
 alumnos_unidos(X):-
     parcial1(X, _);
     parcial2(X, _).
-% {a,b,c,g,h,i} \/ {a,b,c,d,e,f} = ???
+% {a,b,c,d,e,f} \/ {a,b,c,g,h,i} = ???
+</div>
 
+<div class="nb-cell program" data-background="true" name="p8">
 % Union unica
 alumnos(X):-
     parcial1(X, _), parcial2(X, _)    % interseccion A /\ B
@@ -60,7 +62,6 @@ alumnos(X):-
 alumnos2(X):-
     parcial1(X, _);
     (parcial2(X, _), \+parcial1(X, _)).
-
 </div>
 
 <div class="nb-cell query" data-chunk="20" data-tabled="true" name="q1">
@@ -138,8 +139,6 @@ max_nota(X, Alumno).
 
 <div class="nb-cell markdown" name="md5">
 Opcional: Comprobar que pasa si tenemos `nota(g, 8)` como parte de nuestra base de conocimiento. ¿Puede ser prevenido el problema ocurrido en max_nota/1? Investigar [!/0](https://www.swi-prolog.org/pldoc/man?predicate=!/0). ¿El problema ocurre también en max_nota/2? ¿Por qué?
-
-
 </div>
 
 <div class="nb-cell markdown" name="md4">
@@ -166,12 +165,19 @@ nota(c, 9).
 
 nota(d, 4).
 
-% Programa
-mayor_nota(A, X):-
-    %...
-    false.
+</div>
 
+<div class="nb-cell program" name="p7">
+% mayor_nota(A, X):-
 
+</div>
+
+<div class="nb-cell program" data-singleline="true" name="p5">
+% Solución
+
+solucion_todos_menos_alta(A, X):-nota(A, X), nota(A, Y), X &lt; Y.
+
+solucion_mayor_nota(A, X):- nota(A, X), \+solucion_todos_menos_alta(A, X).
 </div>
 
 <div class="nb-cell query" data-chunk="10" data-tabled="true" name="q4">
@@ -179,14 +185,63 @@ mayor_nota(A, X):-
 mayor_nota(A, X).
 </div>
 
-<div class="nb-cell program" data-singleline="true" name="p5">
-% Solución
+<div class="nb-cell markdown" name="md_corte_1">
+## Operador de corte (!)
 
-% (pegar arriba, por contexto de nota/2)
+El `!` es una meta que siempre tiene éxito y **poda el backtracking**: al ejecutarlo, Prolog descarta los puntos de elección creados desde que entró a la cláusula actual, es decir, las cláusulas que le quedaban al predicado y las alternativas de las metas a la **izquierda** del `!`. Las metas a su **derecha** no se ven afectadas y siguen backtrackeando.
 
-solucion_todos_menos_alta(A, X):-nota(A, X), nota(A, Y), X &lt; Y.
+El uso más directo es quedarse con la primera solución:
+</div>
 
-solucion_mayor_nota(A, X):- nota(A, X), \+solucion_todos_menos_alta(A, X).
+<div class="nb-cell program" name="p_corte_1">
+color(rojo).
+color(verde).
+color(azul).
+
+primer_color(X):- color(X), !.
+</div>
+
+<div class="nb-cell query" data-chunk="5" data-tabled="true" name="q_corte_1">
+% color(X) da rojo, verde y azul
+color(X).
+</div>
+
+<div class="nb-cell query" data-chunk="5" data-tabled="true" name="q_corte_2">
+% primer_color(X) da solo rojo: el ! descarta los puntos de eleccion (verde, azul)
+primer_color(X).
+</div>
+
+<div class="nb-cell markdown" name="md_corte_2">
+### Cortar y seguir trabajando
+
+El corte fija lo decidido a su izquierda, pero las metas a su derecha siguen explorando. Acá el `!` se compromete con el primer grupo, y `item(G, V)` después enumera todos sus valores:
+</div>
+
+<div class="nb-cell program" name="p_corte_2">
+item(a, 1).
+item(b, 2).
+item(c, 3).
+item(a, 4).
+item(b, 5).
+item(c, 6).
+item(a, 7).
+
+primer_grupo(G, V):- item(G, _), !, item(G, V).
+</div>
+
+<div class="nb-cell query" data-chunk="5" data-tabled="true" name="q_corte_3">
+% el ! descarta los grupos b y c, pero item(G, V) a la derecha backtrackea
+primer_grupo(G, V).
+</div>
+
+<div class="nb-cell markdown" name="md_cierre">
+## ¿Cómo seguimos?
+
+Con las operaciones de conjuntos (unión, intersección, resta), el producto cartesiano y los máximos y mínimos, ya tenés herramientas para buena parte de la guía.
+
+**Para practicar:** los ejercicios 04 (puntos 4 a 6), 05 (Agencia matrimonial), 06 (Corte de control), 07 (Conjuntos de actividades), 08 (Reuniones empresariales), 09 (Mínimas calorías) y 10 (Vendedores) de la guia-prolog se apoyan en lo visto en este notebook.
+
+**Próximo notebook:** "03 - Recursividad", donde vamos a definir predicados en términos de sí mismos (casos base y casos recursivos).
 </div>
 
 </div>

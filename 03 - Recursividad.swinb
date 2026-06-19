@@ -17,7 +17,6 @@ factorial(N, Resultado):-      % Regla: caso recursivo
     N1 is N - 1,               % se define N1 como N - 1
     factorial(N1, Parcial),    % se invoca la recursividad, preguntando por el valor un paso detrás
     Resultado is Parcial * N.  % se obtiene el resultado
-
 </div>
 
 <div class="nb-cell query" data-chunk="20" data-run="onload" data-tabled="true" name="q1">
@@ -37,8 +36,7 @@ La estructura de la recursividad es siempre de la misma manera. Depende el caso 
 
 Observen que la consulta solo dio verdadero para los casos donde X &gt;= 0. Eso es porque para casos negativos de N, no está definida la regla
 
-Observen también que estamos utilizando el operador `is/2`. Este operador no cumple con las reglas del patrón lógico como el resto de los operadores, por lo tanto, la regla necesita tener si o si definidas para el momento de la operación `is/2`, todo lo que este a su derecha, que es lo que va a ser evaluado. Un mejor operador sería el `#=/2` pero no entra de nuestro alcance de la materia por estar incluido en una biblioteca (clpfd)
-
+Observen también que estamos utilizando el operador `is/2`. Este operador no cumple con las reglas del patrón lógico como el resto de los operadores, por lo tanto, la regla necesita tener si o si definidas para el momento de la operación `is/2`, todo lo que esté a su derecha, que es lo que va a ser evaluado. Un mejor operador sería el `#=/2` pero no entra de nuestro alcance de la materia por estar incluido en una biblioteca (clpfd)
 </div>
 
 <div class="nb-cell query" data-tabled="true" name="q2">
@@ -51,10 +49,29 @@ factorial(X, Resultado).
 factorial(X, 3628800).
 </div>
 
+<div class="nb-cell markdown" name="md3">
+### Práctica
+Definir el término N de la serie de Fibonacci. A diferencia del factorial, este necesita **dos casos base** y **dos llamadas recursivas**
+
+_Opcional:_ Mejorar esa versión, para que pueda correr para series mayores a 30 sin problema
+</div>
+
+<div class="nb-cell program" name="p2">
+
+</div>
+
 <div class="nb-cell query" data-tabled="true" name="q4">
-% Muy lento ya que intentará evaluar en cada paso, salvo que me detenga en el primero
-between(0, 100000, X),
-factorial(X, 3628800).
+
+</div>
+
+<div class="nb-cell markdown" name="md_cierre">
+## ¿Cómo seguimos?
+
+La recursividad es una de las herramientas centrales de Prolog, así que conviene practicarla bastante
+
+**Para practicar:** El ejercicio 11 de la guia-prolog (serie de Gauss, factorial, producto por sumas sucesivas, potencia, cociente y resto, mcd, mcm)
+
+**Próximo notebook:** "04 - Listas", donde vamos a aprender a trabajar con listas, y además aplicar la recursividad sobre las mismas.
 </div>
 
 </div>
