@@ -382,7 +382,7 @@ Si llegaste hasta aquí, felicitaciones: ya entendés los conceptos básicos de 
 
 **Para practicar:** los ejercicios 01 (Menú de restaurant), 02 (Árbol genealógico), 03 (Agencia de viajes) y 04 (Notas de examen [puntos 1 al 3]) de la guia-prolog se resuelven con lo visto en este notebook.
 
-**Próximo notebook:** "02 - Conjuntos y máximos", donde vamos a pensar los predicados como conjuntos (unión, intersección, resta) y a buscar máximos y mínimos.
+**Próximo notebook:** "02 - Conjuntos, maximos y corte", donde vamos a pensar los predicados como conjuntos (unión, intersección, resta) y a buscar máximos y mínimos.
 </div>
 
 <div class="nb-cell markdown" name="md18">
