@@ -2,7 +2,7 @@
 
 <div class="nb-cell markdown" name="md1">
 ## Listas
-En prolog, las listas son colecciones de terminos (variables, terminos simples (atoms, integer, lists, etc), terminos compuestos (2+2, etc)). Estás estructuras ya incluidas en el lenguaje nos van a permitir representar conjuntos sobre los mismos terminos y desarrollar estructuras de datos complejas como pilas, colas, grafos, arboles, etc.
+En Prolog, las listas son colecciones de términos (variables, términos simples (atoms, integer, lists, etc), términos compuestos (2+2, etc)). Estas estructuras, ya incluidas en el lenguaje, nos van a permitir representar conjuntos sobre los mismos términos y desarrollar estructuras de datos complejas como pilas, colas, grafos, árboles, etc.
 
 La lista se escribe entre \[\] y sus elementos son separados por coma. A continuación unos ejemplos de listas:
 
@@ -69,20 +69,20 @@ cabeza_cola([a, b, c], Cabeza, Cola).
 <div class="nb-cell markdown" name="md4">
 ### Recursión sobre listas
 
-Ahora combinemos el uso de listas en reglas, con recursividad, para lograr realizar operaciones que antes o nos eran imposibles, o su código se volvía muy complicado y rebuscado.
+Ahora combinemos el uso de listas en reglas, con recursividad, para lograr realizar operaciones que antes o nos eran imposibles, o su código se tornaba muy complejo en comprensión.
 
-Empecemos por combinar dos listas en una. Para ello voy a utilizar tres argumentos, dos para las listas parciales y uno para la lista combinada. La recursividad hará que eventualmente la segunda lista parcial se unifique como la lista combinada, y al volver sobre la recursion, se le adicionará a esta lista, cada uno de los elementos de la primer lista parcial
+Empecemos por combinar dos listas en una. Para ello vamos a utilizar tres argumentos, dos para las listas parciales y uno para la lista combinada. La recursividad hará que eventualmente la segunda lista parcial se unifique como la lista combinada, y al volver sobre la recursión, se le adicionará a esta lista, cada uno de los elementos de la primera lista parcial
 </div>
 
 <div class="nb-cell program" data-background="true" name="p2">
-% Caso base: Si una lista es vacia, y la otra es una lista,
+% Caso base: Si una lista es vacía, y la otra es una lista,
 % la lista concatenada es la lista parcial
 concatenar([], L, L):-is_list(L).
 
 % Caso recursivo:
 % Para toda lista con al menos un elemento
-% Invoco a la recursividad hasta obtener L en FL, y T vacia
-% Luego antepongo cada elemento del head de la primer lista en orden inverso por la recursividad
+% Invocamos a la recursividad hasta obtener L en FL, y T vacía
+% Luego se antepone cada elemento del head de la primera lista en orden inverso por la recursividad
 concatenar([H | T], L, [H | FL]) :-
     concatenar(T, L, FL).
 </div>
@@ -121,9 +121,9 @@ concatenar([], x, L).
 <div class="nb-cell markdown" name="md5">
 ### length y member
 
-Muchos de los terminos más sencillos para trabajar con listas en prolog ya existen de forma nativa o a través de alguna biblioteca interna. Por ejemplo, nuestro predicado concatenar/3, existe con el nombre append/3.
+Muchos de los términos más sencillos para trabajar con listas en Prolog ya existen de forma nativa o a través de alguna biblioteca interna. Por ejemplo, nuestro predicado concatenar/3, existe con el nombre append/3.
 
-También tenemos otros dos predicados muy utilizados como length/2 donde unifica en sus argumentos una lista con su largo, y member/2 donde unificara en sus argumentos una lista con sus elementos. Intentemos crearlos nosotros para practicar
+También tenemos otros dos predicados muy utilizados como length/2 donde unifica en sus argumentos una lista con su largo, y member/2 donde unificará en sus argumentos una lista con sus elementos. Intentemos crearlos nosotros para practicar
 </div>
 
 <div class="nb-cell program" data-background="true" name="p3">
@@ -151,7 +151,7 @@ solucion_miembro(X,[_|T]):-solucion_miembro(X,T).
 <div class="nb-cell markdown" name="md6">
 ### findall
 
-Hay casos donde la información la vamos a tener dispuesta en hechos, pero queremos trabajarlo como listas. Para ello debemos tomar el conjunto deseado y pasarlo a una lista. Hay un predicado denominado findall/3 que se encarga de esto mismo. Para utilizarlo, se espera una variable que va a funcionar como un extractor, una meta (goal), y una variable con la lista con los valores recolectados
+Hay casos donde la información la vamos a tener dispuesta en hechos, pero queremos trabajarlo como listas. Para ello debemos tomar el conjunto deseado y enviarlo a una lista. Hay un predicado denominado findall/3 que se encarga de esto mismo. Para utilizarlo, se espera una variable que va a funcionar como un extractor, una meta (goal), y una variable con la lista con los valores recolectados.
 </div>
 
 <div class="nb-cell program" data-background="true" name="p5">
@@ -179,7 +179,7 @@ findall(X, nota(_, X), ListaNotas)
 
 <div class="nb-cell query" data-tabled="true" name="q15">
 % Listado de alumnos desaprobados
-% El guión bajo delante nos indica que es una variable que no se desea mostrar
+% El guion bajo delante nos indica que es una variable que no se desea mostrar
 findall(_Y, (nota(_Y, _X), \+aprobada(_X)), ListaNotas)
 </div>
 

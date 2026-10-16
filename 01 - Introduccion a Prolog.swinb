@@ -9,7 +9,7 @@
 
 <div class="nb-cell markdown" name="md1">
 ### Muy sencillo
-Toda la información en Prolog es representada en terminos. Hay un solo elemento del lenguaje, que es la clausula. El mismo tiene la forma
+Toda la información en Prolog es representada en términos. Hay un solo elemento del lenguaje, que es la cláusula. El mismo tiene la forma
 </div>
 
 <div class="nb-cell program" name="p1">
@@ -30,11 +30,11 @@ perro(breton).
 </div>
 
 <div class="nb-cell markdown" name="md3">
-Usualmente, en la catedra vamos a trabajar acompañados por una *base de conocimientos* que no es más que un conjunto de datos con los que trabajamos, expresados en forma de listados de hechos.
+Usualmente, en la cátedra vamos a trabajar acompañados por una *base de conocimientos* que no es más que un conjunto de datos con los que trabajamos, expresados en forma de listados de hechos.
 
 Toda base de conocimiento puede ser consultada a través de una consulta. Dará falso cualquier cosa que no pertenezca al conjunto solución 
 
-(Por ello expresiones como `perro(poodle):-false` no aportan información. Si `perro(poodle)` no está en la base de conocimientos, consultar por el dará falso sin necesidad de que se especifique)
+(Por ello expresiones como `perro(poodle):-false` no aportan información. Si `perro(poodle)` no está en la base de conocimientos, consultar por él dará falso sin necesidad de que se especifique)
 </div>
 
 <div class="nb-cell query" data-chunk="2" data-tabled="true" name="q3">
@@ -48,7 +48,7 @@ perro(dalmata)
 <div class="nb-cell markdown" name="md4">
 ### Declarativo
 
-Prolog es un lenguaje declarativo. Esto significa que vamos a expresar en que estamos interesados y no en el como
+Prolog es un lenguaje declarativo. Esto significa que vamos a expresar en qué estamos interesados y no en el cómo.
 </div>
 
 <div class="nb-cell program" name="p3">
@@ -76,7 +76,7 @@ hija(Hija, Progenitor) :- mujer(Hija), progenitor(Progenitor, Hija).
 <div class="nb-cell markdown" name="md6">
 En este ejemplo hemos creado una regla que dice que Hija es hija de Progenitor si y solo si Hija es mujer y Progenitor es progenitor de Hija. Tanto mujer/1 como progenitor/2 van a formar parte de nuestra base de conocimiento. Podrían también ser reglas
 
-_Notese que hija/2 es la firma. En otros lenguajes la firma lleva también los tipos, pero en este caso en prolog no es así_
+_Nótese que hija/2 es la firma. En otros lenguajes la firma lleva también los tipos, pero en este caso en Prolog no es así_
 
 Para probar que esto funciona podemos ejecutar una *query* o consulta. Las mismas comienzan con el operador ?-
 </div>
@@ -96,21 +96,21 @@ hija(X, ana)
 <div class="nb-cell markdown" name="md7">
 ### Lógico
 
-Prolog pertenece al paradigma de programación lógica, por lo cual su base es puramente lógica. Un lenguaje puro de Prolog puede ser expresado unicamente con un conjunto de [cláusulas de Horn](https://en.wikipedia.org/wiki/Horn_clause)
+Prolog pertenece al paradigma de programación lógica, por lo cual su base es puramente lógica. Un lenguaje puro de Prolog puede ser expresado únicamente con un conjunto de [cláusulas de Horn](https://en.wikipedia.org/wiki/Horn_clause)
 
 ``mujer(H) ∧ progenitor(P, H) → hija(H, P)``
 
-Su forma de evaluar es a través del metodo de prueba de resolución, donde lo que se intenta es probar la contradicción, siendo el más común el SLDNF
+Su forma de evaluar es a través del método de prueba de resolución, donde lo que se intenta es probar la contradicción, siendo el más común el SLDNF (resolución SLD con negación por falla: `\+ Meta` es verdadero si `Meta` no se puede probar).
 </div>
 
 <div class="nb-cell markdown" name="md8">
 ## Entonces...
 
-*Programa:* conjunto de predicados
+*Programa:* Conjunto de predicados.
 
-*Predicado:* Define relaciones entre sus argumentos (o parámetros). Un predicado está compuesto por un conjunto de clausulas y se identifica por su nombre y el número de argumentos que toma. El ejemplo anterior que creamos se expresaría como _hija/2_, y define la relación entre Hija y Progenitor
+*Predicado:* Define relaciones entre sus argumentos (o parámetros). Un predicado está compuesto por un conjunto de cláusulas y se identifica por su nombre y el número de argumentos que toma. El ejemplo anterior que creamos se expresaría como _hija/2_, y define la relación entre Hija y Progenitor.
 
-*Clausula:* Es un hecho o una regla. Si cualquier clausula es verdadera, el predicado lo es también. En el caso anterior, de no contar con progenitor, pero si con padre y madre, podríamos haber escrito el predicado hija/2 con dos clausulas.
+*Cláusula:* Es un hecho o una regla. Si cualquier cláusula es verdadera, el predicado lo es también. En el caso anterior, de no contar con progenitor, pero sí con padre y madre, podríamos haber escrito el predicado hija/2 con dos cláusulas.
 
 ```prolog
 hija(Hija, Progenitor):-  mujer(Hija), padre(Progenitor, Hija).
@@ -124,7 +124,7 @@ hija(Hija, Progenitora):- mujer(Hija), madre(Progenitora, Hija).
 *Consulta (query):* Es la forma de ejecutar los programas en Prolog. Se compone de una meta a alcanzar. Esta meta puede ser exitosa varias veces, dando como resultado un conjunto de datos.
 
 
-Algunos predicados ya nos vienen dados por prolog. Los iremos conociendo de a poco
+Algunos predicados ya nos vienen dados por Prolog. Los iremos conociendo de a poco
 
 Nota: Todas las operaciones, como el _y_ (,) también son predicados (,/2), y puedo escribir tanto
 ```prolog
@@ -137,24 +137,24 @@ como
 </div>
 
 <div class="nb-cell markdown" name="md9">
-## Terminos
-Al principio mencionamos que _toda la información en prolog es representada en terminos_.
+## Términos
+Al principio mencionamos que _toda la información en Prolog es representada en términos_.
 
-Estos terminos pueden ser varias cosas. Nosotros solo llegaremos a utilizar alguno de estos
+Estos términos pueden ser varias cosas. Nosotros solo llegaremos a utilizar alguno de estos.
 
 *Variables:* Son componentes que vamos a estar utilizando para ser relacionados a otros y obtener resultados. Empiezan con una letra mayúscula o con un \_. Existen también variables anónimas donde su nombre solo será "_"
 
-*Termino simple:* Pueden ser:
+*Término simple:* Pueden ser:
 	- atoms: x, mati, 'con espacios'
 	- integer: 23
 	- floating: 23.1
 	- otros números
-	- otros elementos: lists, strings, pairs, asociations
+	- otros elementos: lists, strings, pairs (pares Clave-Valor, como `a-1`), associations
 
-*Termino compuesto:* Conjunto de terminos simples, unidos por operaciones.
+*Término compuesto:* Conjunto de términos simples, unidos por operaciones.
 
-### Verificación de terminos
-Swi-prolog incluye varios predicados que permiten verificar estos tipos de terminos ([doc](https://www.swi-prolog.org/pldoc/man?section=typetest)). Los más importantes son:
+### Verificación de términos
+SWI-Prolog incluye varios predicados que permiten verificar estos tipos de términos ([doc](https://www.swi-prolog.org/pldoc/man?section=typetest)). Los más importantes son:
 - var/1: true si el parámetro es una variable libre (sin valor definido [puede tener otra variable como valor, mientras ambas sean libres])
 - number/1: true si el parámetro es un número
 - atom/1: true si el parámetro es un atom
@@ -180,23 +180,23 @@ madre_de(susana, julian).
 </div>
 
 <div class="nb-cell markdown" name="md11">
-Intentemos ver que clausulas (reglas a partir de ahora, ya que lo vamos a utilizar como sinónimos) podemos crear para aprender con este caso
+Intentemos ver qué cláusulas (reglas a partir de ahora, ya que lo vamos a utilizar como sinónimos) podemos crear para aprender con este caso
 
-Primero veamos que podemos consultar
+Primero veamos qué podemos consultar
 </div>
 
 <div class="nb-cell query" data-chunk="10" data-tabled="true" name="q5">
-% Si quisieramos listar la información disponible
+% Si quisiéramos listar la información disponible
 padre_de(Padre, Hijo).
 </div>
 
 <div class="nb-cell query" data-chunk="10" data-tabled="true" name="q6">
-% También podríamos consultar solo aquellos que son padres. Por ahora no nos van a importar los duplicados
+% También podríamos consultar solo aquellos que son padres. Por ahora vamos a desestimar los duplicados.
 padre_de(Padre, _).
 </div>
 
 <div class="nb-cell markdown" name="md12">
-Intentemos crear las regla hijo_de, que nos de para una persona, su padre y madre
+Intentemos crear la regla hijo_de, que nos dé para una persona, su padre y madre
 
 Para ello nos vamos a valer de los *predicados de control*. Estos nos permiten generar relaciones lógicas. Estos son:
 	- ,/2 para el *and*
@@ -246,15 +246,15 @@ abuelo_de(luis, Nieto).
 </div>
 
 <div class="nb-cell markdown" name="md14">
-Para los siguientes ejercicios vamos a agregar un concepto nuevo, el de comparación y unificacion
+Para los siguientes ejercicios vamos a agregar un concepto nuevo, el de comparación y unificación
 
 *Unificación:*
-	- =/2 Unifica ambos terminos, es decir, intenta relacionar ambos terminos como equivalentes o da falso
-    - \=/2 Lo contrario de arriba, implica que ambos terminos son estrictamente distintos, o da falso
+	- =/2 Unifica ambos términos, es decir, intenta relacionar ambos términos como equivalentes o da falso
+    - \=/2 Al contrario de lo expresado arriba, implica que ambos términos son estrictamente distintos, o da falso
 
 *Comparación:*
-	- ==/2 Da verdadero cuando ambos terminos son iguales, sin aplicar unificación
-    - \==/2 Da verdadero cuando ambos terminos son distintos, sin aplicar unificación
+	- ==/2 Da verdadero cuando ambos términos son iguales, sin aplicar unificación.
+    - \==/2 Da verdadero cuando ambos términos son distintos, sin aplicar unificación.
 
 Veamos algunas consultas para despejar dudas con estos nuevos operadores:
 </div>
@@ -307,7 +307,7 @@ solucion_progenitor(X):-
     padre_de(X, _);
     madre_de(X, _).
 
-% Nota: esta version asume que conocemos padre Y madre de ambos hermanos.
+% Nota: Esta versión asume que conocemos padre Y madre de ambos hermanos.
 % Si faltara alguno de esos hechos, no los encontraría como medio hermanos.
 solucion_medio_hermano_de(H1, H2):-
     padre_de(P1, H1),
@@ -333,23 +333,23 @@ solucion_hermano_de(H1, H2):-
 </div>
 
 <div class="nb-cell markdown" name="md16">
-Por último nos falta ver como operar con números
+Por último, nos falta ver cómo operar con números
 
 Vamos a disponer de los siguientes operadores matemáticos:
 	- Comparación de mayor / menor: &lt; &gt;
 	- Comparación de mayor igual / menor igual: =&lt;  &gt;= (caritas tristes)
 	- Comparación con evaluación igual / distinto: =:= =\=
-	- Evaluación aritmética: is/2 (evalua la parte derecha, que debe estar totalmente instanciada, y unifica el resultado sobre la izquierda)
+	- Evaluación aritmética: is/2 (evalúa la parte derecha, que debe estar totalmente instanciada, y unifica el resultado sobre la izquierda).
 	- Operadores unarios: + -
 	- Operaciones aritméticas: + - * / ** // mod
     - Operaciones de bits: &lt;&lt; &gt;&gt; /\ \/ xor
-    - Funciones aritmeticas: abs sqrt sin cos tan exp log
+    - Funciones aritméticas: abs sqrt sin cos tan exp log
 
 Nota: is/2 es el operador estándar para aritmética. Existe una alternativa más declarativa, `#=/2` de la librería clpfd, pero queda fuera del alcance de este notebook.
 </div>
 
 <div class="nb-cell markdown" name="md_clasif">
-Como último ejercicio, vamos a clasificar un par de notas (de 1 a 10) en tres estados, usando una clausula por rango:
+Como último ejercicio, vamos a clasificar un par de notas (de 1 a 10) en tres estados, usando una cláusula por rango:
 	- `desaprobado` si una nota es menor a 4
 	- `aprobado` si ninguna nota es menor a 4, y su promedio es menor a 6.5
 	- `promociona` si ninguna nota es menor a 4, y su promedio es mayor igual a 6.5

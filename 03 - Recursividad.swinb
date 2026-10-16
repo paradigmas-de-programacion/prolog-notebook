@@ -25,7 +25,7 @@ factorial(X, Resultado).
 </div>
 
 <div class="nb-cell markdown" name="md2">
-La estructura de la recursividad es siempre de la misma manera. Depende el caso quizás es necesario definir más de una regla base o regla recursiva, o quizás se deba invocar a la recursividad más de una vez, o la operación no es tan sencilla como en este caso, pero la base se respeta
+La estructura de la recursividad es siempre de la misma manera. Depende el caso, quizás es necesario definir más de una regla base o regla recursiva, o quizás se deba invocar a la recursividad más de una vez, o la operación no es tan sencilla como en este caso, pero la base se respeta
 
     * Regla base
     * Regla recursiva
@@ -36,7 +36,7 @@ La estructura de la recursividad es siempre de la misma manera. Depende el caso 
 
 Observen que la consulta solo dio verdadero para los casos donde X &gt;= 0. Eso es porque para casos negativos de N, no está definida la regla
 
-Observen también que estamos utilizando el operador `is/2`. Este operador no cumple con las reglas del patrón lógico como el resto de los operadores, por lo tanto, la regla necesita tener si o si definidas para el momento de la operación `is/2`, todo lo que esté a su derecha, que es lo que va a ser evaluado. Un mejor operador sería el `#=/2` pero no entra de nuestro alcance de la materia por estar incluido en una biblioteca (clpfd)
+Observen también que estamos utilizando el operador `is/2`. Este operador no cumple con las reglas del patrón lógico como el resto de los operadores, por lo tanto, la regla necesita tener sí o sí definidas para el momento de la operación `is/2`, todo lo que esté a su derecha, que es lo que va a ser evaluado. Un mejor operador sería el `#=/2` pero no entra de nuestro alcance de la materia por estar incluido en una biblioteca (clpfd)
 </div>
 
 <div class="nb-cell query" data-tabled="true" name="q2">
@@ -53,7 +53,7 @@ factorial(X, 3628800).
 ### Práctica
 Definir el término N de la serie de Fibonacci. A diferencia del factorial, este necesita **dos casos base** y **dos llamadas recursivas**
 
-_Opcional:_ Mejorar esa versión, para que pueda correr para series mayores a 30 sin problema
+_Opcional:_ Mejorar esa versión, para que pueda ejecutar series mayores a 30 sin problema
 </div>
 
 <div class="nb-cell program" name="p2">
